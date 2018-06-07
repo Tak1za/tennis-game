@@ -40,10 +40,20 @@
             colorRect(0, 0, canvas.width, canvas.height, 'black');
 
             // Left Paddle
-            colorRect(0, 200, 10, 100, 'white');
+            colorRect(0, 250, 10, 100, 'white');
 
-            // Ball
-            colorRect(ballX, 100, 10, 10, 'red');
+            // Right Paddle
+            colorRect(790, 250, 10, 100, 'white');
+
+            //Ball
+            colorCircle(ballX, 100, 6, 'white');
+        }
+
+        function colorCircle(centerX, centerY, radius, drawColor){
+            canvasContext.fillStyle=drawColor;
+            canvasContext.beginPath();
+            canvasContext.arc(centerX, centerY, radius, 0, Math.PI*2, true);
+            canvasContext.fill();
         }
 
         function colorRect(leftX, topY, width, height, drawColor){

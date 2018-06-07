@@ -12,31 +12,43 @@
     <script>
         var canvas;
         var canvasContext;
-        var ballX=50;
+        var ballX = 50;
+        var ballSpeedX = 5;
 
         window.onload = function () {
             canvas = document.getElementById("gameCanvas");
             canvasContext = canvas.getContext('2d');
-            var fps=30;
-            setInterval(callBoth, 1000/fps);
+            var fps = 30;
+            setInterval(function () {
+                moveEverything();
+                drawEverything();
+            }, 1000 / fps);
         }
 
-        function callBoth(){
-            moveEverything();
-            drawEverything();
-        }
-
-        function moveEverything(){
-            ballX=ballX+5;
+        function moveEverything() {
+            ballX = ballX + ballSpeedX;
+            if(ballX>=canvas.width){
+                ballSpeedX=-ballSpeedX;
+            }
+            if(ballX <= 0){
+                ballSpeedX=-ballSpeedX;
+            }
         }
 
         function drawEverything() {
-            canvasContext.fillStyle = 'black';
-            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-            canvasContext.fillStyle = 'white';
-            canvasContext.fillRect(0, 200, 10, 100);
-            canvasContext.fillStyle = 'red';
-            canvasContext.fillRect(ballX, 100, 10, 10);
+            // Black out the screen
+            colorRect(0, 0, canvas.width, canvas.height, 'black');
+
+            // Left Paddle
+            colorRect(0, 200, 10, 100, 'white');
+
+            // Ball
+            colorRect(ballX, 100, 10, 10, 'red');
+        }
+
+        function colorRect(leftX, topY, width, height, drawColor){
+            canvasContext.fillStyle = drawColor;
+            canvasContext.fillRect(leftX, topY, width, height);
         }
     </script>
 </body>

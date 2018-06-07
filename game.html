@@ -1,13 +1,31 @@
-<canvas id="gameCanvas" width="800" height="600"></canvas>
+<html>
 
-<script>
-    var canvas;
-    var canvasContext;
+<head>
+    <title>Tennis</title>
+</head>
 
-    window.onload = function () {
-        canvas = document.getElementById("gameCanvas");
-        canvasContext = canvas.getContext('2d');
-        canvasContext.fillStyle = "black";
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-    }
-</script>
+</html>
+
+<body>
+    <canvas id="gameCanvas" width="800" height="6   00"></canvas>
+
+    <script>
+        var canvas;
+        var canvasContext;
+
+        window.onload = function () {
+            canvas = document.getElementById("gameCanvas");
+            canvasContext = canvas.getContext('2d');
+            drawEverything();
+        }
+
+        function drawEverything() {
+            canvasContext.fillStyle = 'black';
+            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+            canvasContext.fillStyle = 'white';
+            canvasContext.fillRect(225, 210, 200, 200);
+            canvasContext.fillStyle = 'red';
+            canvasContext.fillRect(canvas.width / 2, canvas.height / 2, 50, 25);
+        }
+    </script>
+</body>

@@ -66,6 +66,7 @@
             canvasContext = canvas.getContext('2d');
             canvasContext.font = "30px Arial";
             var fps = 30;
+            canvasContext.fillText("Single Player", canvasH - 30, canvasW - 50);
 
             setInterval(function () {
                 moveEverything();
@@ -74,21 +75,27 @@
 
             canvas.addEventListener('mousemove', function (event) {
                 var mousePos = calculateMousePosition(event);
-                if (mousePos.x <= canvasW / 2) {
-                    paddle1Y = mousePos.y - (PADDLE_HEIGHT / 2);
-                }
-                else {
-                    paddle2Y = mousePos.y - (PADDLE_HEIGHT / 2);
-                }
+                paddle1Y = mousePos.y - (PADDLE_HEIGHT / 2);
             });
 
             canvas.addEventListener('mousedown', handleMouseClick);
+        }
+
+        function computerMovement() {
+            var paddle2YCenter = paddle2Y + (PADDLE_HEIGHT / 2);
+            if (paddle2YCenter < ballY - 40) {
+                paddle2Y += 8;
+            }
+            else if (paddle2YCenter > ballY + 40) {
+                paddle2Y -= 8;
+            }
         }
 
         function moveEverything() {
             if (showingWinScreen) {
                 return;
             }
+            computerMovement();
 
             ballX = ballX + ballSpeedX;
             ballY = ballY + ballSpeedY;
@@ -151,10 +158,10 @@
             if (showingWinScreen) {
                 canvasContext.fillStyle = 'white';
                 if (player1Score >= WINNING_SCORE) {
-                    var txt = "<== Grey Wins!";
+                    var txt = "<== You Win!";
                     canvasContext.fillText(txt, canvasW / 2 - (canvasContext.measureText(txt).width) / 2, canvasH / 2);
                 } else if (player2Score >= WINNING_SCORE) {
-                    var txt = "Black Wins! ==>";
+                    var txt = "Computer Wins! ==>";
                     canvasContext.fillText(txt, canvasW / 2 - (canvasContext.measureText(txt).width) / 2, canvasH / 2);
                 }
                 return;
